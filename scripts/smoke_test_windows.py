@@ -29,7 +29,11 @@ def main() -> None:
         env["PATH"] = str(Path(os.environ["SystemRoot"]) / "System32")
         command = os.environ.get("COMSPEC", str(Path(os.environ["SystemRoot"]) / "System32" / "cmd.exe"))
         # Paths contain spaces and the working directory is outside the package.
-        result = subprocess.run([command, "/d", "/c", f'call "{app / "Personalize.cmd"}"'],
+        # cmd.exe does not use the C-runtime backslash escaping that Python
+        # applies to argument lists. Pass its /s /c command line verbatim.
+        launcher = app / "Personalize.cmd"
+        command_line = f'"{command}" /d /s /c ""{launcher}""'
+        result = subprocess.run(command_line,
                                 cwd=root, env=env, input="Windows Test Customer\n\n",
                                 text=True, capture_output=True, timeout=120)
         if result.returncode != 0:
