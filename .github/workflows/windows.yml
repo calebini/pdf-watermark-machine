@@ -1,0 +1,28 @@
+name: Windows portable package
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          architecture: x64
+      - name: Test, build and verify Windows package
+        run: python scripts/build_windows.py
+      - name: Upload tested package
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-watermark-windows-x64
+          path: |
+            dist/*-windows-x64-preview.zip
+            dist/*-windows-x64-preview.zip.sha256
+          if-no-files-found: error

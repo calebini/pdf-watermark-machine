@@ -1,0 +1,15 @@
+.venv/
+.venv-windows/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+vendor/
+tmp/
+output/
+*.owner-password
+.DS_Store
+working/
+.env
+.env.*
