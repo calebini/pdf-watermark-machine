@@ -13,3 +13,5 @@ output/
 working/
 .env
 .env.*
+node_modules/
+web/test-results/

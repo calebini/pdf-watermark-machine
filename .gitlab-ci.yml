@@ -1,0 +1,3 @@
+# Builds only the browser distribution. See web/DEPLOY.md for GitLab setup.
+include:
+  - local: /web/gitlab-pages.yml

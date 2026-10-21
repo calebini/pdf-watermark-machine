@@ -4,6 +4,13 @@ A local CLI for adding a customer's name and a header to an existing PDF, then
 applying qpdf AES-256 encryption and PDF permission controls. No network calls
 are made during processing. A reusable Python API leaves room for a later UI.
 
+A separate **browser-only distribution** now lives in [`web/`](web/README.md).
+It produces the same watermark/header and PDF permissions using browser-local
+JavaScript and qpdf WebAssembly. Its built static files are in `web/dist/` for
+local testing and static hosting. The GitHub Pages workflow publishes this
+variant; an alternative GitLab Pages configuration is also included. See
+[`web/DEPLOY.md`](web/DEPLOY.md) for setup; nothing has been deployed yet.
+
 ## Use a portable build
 
 On macOS, extract the entire folder, put your template PDF in

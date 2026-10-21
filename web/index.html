@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>PDF Watermark · Document personalization</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">P</span><span>PDF Watermark <span class="brand-divider">/</span> <span class="brand-detail">Document utility</span></span></div><span class="local-badge"><span aria-hidden="true">●</span> Runs on your device</span></header>
+  <main>
+    <div class="intro"><p class="eyebrow">CUSTOMER DOCUMENTS</p><h1>A white paper.<br>A personal copy.</h1><p class="lede">Add a customer watermark, apply document permissions,<br class="desktop-break"> and create a copy ready to share.</p></div>
+    <div class="workspace">
+      <section class="form-card" aria-labelledby="form-title">
+        <div class="card-heading"><h2 id="form-title">Prepare your document</h2><span class="step-note">All processing stays in this browser</span></div>
+        <form id="personalize-form">
+          <fieldset id="inputs">
+            <label class="field-label" for="template"><span class="step-number">1</span> Choose the template</label>
+            <div class="file-field"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H6V3h1Z M14 3v5h4 M9 12h6 M9 16h6"/></svg><div><label class="file-label" for="template">Select a PDF from your computer</label><p id="file-description">Unsigned, unencrypted PDF · Up to 50 MB</p><input id="template" name="template" type="file" accept=".pdf,application/pdf" required aria-describedby="file-description"></div></div>
+            <label class="field-label customer-label" for="customer"><span class="step-number">2</span> Personalize the copy</label>
+            <label class="small-label" for="customer">Customer name</label>
+            <input id="customer" name="customer" type="text" maxlength="300" placeholder="e.g. Example Corporation" autocomplete="off" spellcheck="false" required>
+            <p class="field-help">Appears in the header and as a diagonal watermark on every page.</p>
+            <details><summary>Customize header and appearance</summary><div class="advanced">
+              <label class="small-label" for="header">Center header <span class="optional">optional</span></label><input id="header" type="text" maxlength="300" placeholder="Prepared exclusively for your customer" autocomplete="off" spellcheck="false">
+              <label class="small-label" for="opacity">Watermark opacity <output id="opacity-label" for="opacity">16%</output></label><input id="opacity" type="range" min="5" max="40" value="16">
+              <label class="small-label" for="font">Custom TrueType font <span class="optional">optional</span></label><input id="font" type="file" accept=".ttf"><p class="field-help">Use a font with the characters your customer’s name needs.</p>
+            </div></details>
+          </fieldset>
+          <button class="primary" id="generate" type="submit"><span>Generate protected PDF</span><span aria-hidden="true">↗</span></button>
+          <div id="status" role="status" aria-live="polite"></div>
+          <button id="cancel" class="text-button" type="button" hidden>Cancel processing</button>
+          <div id="result" class="result" hidden role="status" aria-live="polite"><span class="success-dot" aria-hidden="true">✓</span><div><strong>Your customer copy is ready</strong><p id="result-description"></p><a id="download" class="download-link">Download PDF <span aria-hidden="true">↓</span></a></div></div>
+        </form>
+      </section>
+      <aside class="side-panel">
+        <div class="preview-label">YOUR CUSTOMER COPY</div>
+        <div class="paper" aria-label="Illustration of the customer watermark and header"><div class="paper-header"><span>Under NDA</span><span id="preview-header">Prepared exclusively for your customer</span><span>Not for redistribution</span></div><div class="paper-content"><span class="paper-kicker">SAMPLE DOCUMENT</span><h3>Security<br>White Paper</h3><div class="paper-lines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div><div id="preview-watermark" class="paper-watermark" aria-hidden="true">Your customer</div><div class="paper-footer">CUSTOMER-SPECIFIC COPY</div></div>
+        <div class="protection"><h3>Included in every copy</h3><ul><li><span>✓</span> Customer watermark and NDA header</li><li><span>✓</span> AES-256 encryption</li><li><span>✓</span> Printing, copying and editing restricted</li><li><span>✓</span> Search and accessibility preserved*</li></ul><p>PDF permissions are enforced by compatible readers. They do not prevent screenshots or restriction removal.</p><p>*Original text and accessibility structure are retained. The tool does not add missing accessibility tags.</p></div>
+      </aside>
+    </div>
+    <footer><span class="privacy-lock" aria-hidden="true">◇</span><p>Your PDF and customer name are processed locally. No document uploads or tracking.</p><a href="./THIRD-PARTY-NOTICES.txt" target="_blank" rel="noopener">Software notices</a></footer>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

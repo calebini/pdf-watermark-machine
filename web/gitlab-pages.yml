@@ -1,0 +1,25 @@
+# Included by /.gitlab-ci.yml. Requires GitLab 17.9 or newer.
+# Builds only the static browser distribution, never the desktop tools.
+default:
+  image: node:24-alpine
+
+stages:
+  - deploy
+
+deploy-pages:
+  stage: deploy
+  script:
+    - cd web
+    - npm ci
+    - npm test
+    - npm run build
+  pages:
+    publish: web/dist
+  artifacts:
+    paths:
+      - web/dist
+  environment:
+    name: production
+    url: $CI_PAGES_URL
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
