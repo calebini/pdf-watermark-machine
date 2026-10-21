@@ -37,6 +37,9 @@ in the distribution.
 - Default center: `Prepared exclusively for CUSTOMER`; optional custom text.
 - A 36-point band is added above each visible page; source content is not covered.
 - Translucent diagonal customer watermark, adjustable from 5% to 40% opacity.
+- Watermark font size adjustable from 12 to 96 points (default 48). Long names
+  shrink to fit each page. Both size and opacity update the illustration live
+  and apply to the downloaded PDF; the header size remains automatic.
 - Original text, links, metadata and document structure retained; no rasterization.
 - Embedded Bitstream Vera supports common Latin names, including accented text.
   Missing glyphs produce an error; optionally choose a suitable TrueType font.

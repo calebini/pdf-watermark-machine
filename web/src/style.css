@@ -69,30 +69,7 @@ body {
 main {
   max-width:1112px;
   margin:auto;
-  padding:53px 30px 28px;
-}
-.intro {
-  margin-bottom:34px;
-}
-.eyebrow {
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:1.8px;
-  color:#4b64a7;
-  margin:0 0 18px;
-}
-h1 {
-  font-size:46px;
-  line-height:1.12;
-  letter-spacing:-2px;
-  font-weight:400;
-  margin:0 0 18px;
-}
-.lede {
-  font-size:14px;
-  line-height:1.85;
-  color:#637087;
-  margin:0;
+  padding:32px 30px 28px;
 }
 .workspace {
   display:grid;
@@ -111,7 +88,7 @@ h1 {
   padding:25px 28px 22px;
   border-bottom:1px solid #e9edf3;
 }
-h2 {
+.card-heading h1 {
   font-size:17px;
   font-weight:700;
   margin:0 0 9px;
@@ -417,13 +394,15 @@ output {
 }
 .paper-watermark {
   position:absolute;
-  inset:147px -65px auto;
-  transform:rotate(-35deg);
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%) rotate(-35deg);
+  width:max-content;
   text-align:center;
-  color:#152b591c;
-  font-size:26px;
+  color:rgb(38,48,61);
+  opacity:.16;
+  font-size:24px;
   white-space:nowrap;
-  overflow:hidden;
   pointer-events:none;
 }
 .paper-footer {
@@ -516,10 +495,7 @@ fieldset:disabled {
     gap:28px;
   }
   main {
-    padding:35px 20px 24px;
-  }
-  h1 {
-    font-size:39px;
+    padding:24px 20px;
   }
   .side-panel {
     display:grid;
@@ -545,9 +521,6 @@ fieldset:disabled {
     align-items:flex-start;
     flex-wrap:wrap;
   }
-  .desktop-break {
-    display:none;
-  }
 }
 @media(max-width:420px) {
   .card-heading,form {
@@ -564,9 +537,6 @@ fieldset:disabled {
   .protection {
     padding-top:15px;
     border-top:1px solid #dde3ed;
-  }
-  h1 {
-    font-size:36px;
   }
   .brand-mark {
     width:28px;

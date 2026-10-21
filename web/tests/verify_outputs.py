@@ -26,6 +26,8 @@ for item in manifest:
             assert all(abs(float(actual) - expected_value) < 0.01 for actual, expected_value in zip(page.cropbox, expected))
             assert page.rotation == 0
             assert len(page.obj.get('/Annots', [])) == len(source_page.obj.get('/Annots', []))
+            assert any(abs(float(state.get('/ca', 1)) - item['opacity']) < 0.000001
+                       for state in page.Resources.get('/ExtGState', {}).values()), 'Watermark opacity differs from selection'
         if '/Title' in original.docinfo:
             assert str(original.docinfo.Title) == str(pdf.docinfo.Title)
         keys.append(bytes(pdf.encryption.encryption_key))
@@ -36,6 +38,13 @@ for item in manifest:
         assert ''.join(source_page.extract_text().split()) in ''.join(text.split()), output.name
         for expected in (item['customer'], item['header'], 'Under NDA', 'Not for redistribution'):
             assert expected in text, (output.name, expected)
+        if item.get('expectedFontSize') is not None:
+            sizes = []
+            def inspect_text(text, cm, tm, font, size):
+                if text.strip() == item['customer']:
+                    sizes.append(size)
+            page.extract_text(visitor_text=inspect_text)
+            assert sizes and all(abs(size - item['expectedFontSize']) < 0.01 for size in sizes), (output.name, sizes)
     if 'external-template' not in output.name:
         assert 'Searchable original browser-test content' in reader.pages[0].extract_text()
     print(f"PASS independent inspection: {output.name}, {len(reader.pages)} pages")

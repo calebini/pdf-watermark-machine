@@ -1,9 +1,10 @@
-import { MAX_FILE_BYTES, validateOptions, outputFilename } from './policy.js';
+import { MAX_FILE_BYTES, validateOptions, fitWatermarkSize, outputFilename } from './policy.js';
 
 const $ = selector => document.querySelector(selector);
 const form = $('#personalize-form'), inputs = $('#inputs'), status = $('#status');
 const generate = $('#generate'), cancel = $('#cancel'), result = $('#result');
 let worker, downloadURL;
+const previewMeasure = document.createElement('canvas').getContext('2d');
 
 function clearDownload() {
   if (downloadURL) URL.revokeObjectURL(downloadURL);
@@ -21,7 +22,15 @@ function fail(message) {
 function preview() {
   const name = $('#customer').value.trim();
   $('#preview-header').textContent = $('#header').value.trim() || `Prepared exclusively for ${name || 'your customer'}`;
-  $('#preview-watermark').textContent = name || 'Your customer';
+  const watermark = $('#preview-watermark');
+  const fontSize = Number($('#watermark-size').value);
+  watermark.textContent = name || 'Your customer';
+  watermark.style.opacity = Number($('#opacity').value) / 100;
+  // The illustration represents a typical A4 page, not the selected PDF.
+  previewMeasure.font = '1px Vera';
+  const fittedSize = fitWatermarkSize(previewMeasure.measureText(watermark.textContent).width, 595, 842, fontSize);
+  watermark.style.fontSize = `${fittedSize * $('.paper').clientWidth / 595}px`;
+  $('#watermark-size-label').textContent = `${fontSize} pt`;
   $('#opacity-label').textContent = `${$('#opacity').value}%`;
 }
 for (const input of form.querySelectorAll('input')) {
@@ -38,7 +47,8 @@ form.addEventListener('submit', async event => {
     const file = $('#template').files[0];
     if (!file || !file.size || file.size > MAX_FILE_BYTES) throw new Error('Choose a non-empty PDF smaller than 50 MB.');
     const options = validateOptions({ customer: $('#customer').value,
-      header: $('#header').value.trim() || undefined, opacity: Number($('#opacity').value) / 100 });
+      header: $('#header').value.trim() || undefined, opacity: Number($('#opacity').value) / 100,
+      watermarkFontSize: Number($('#watermark-size').value) });
     inputs.disabled = true; generate.disabled = true; status.textContent = 'Reading the selected file…';
     const input = await file.arrayBuffer();
     const customFont = $('#font').files[0];
@@ -69,3 +79,6 @@ form.addEventListener('submit', async event => {
   } catch (error) { fail(error.message); }
 });
 window.addEventListener('pagehide', () => { stop(); clearDownload(); });
+new ResizeObserver(preview).observe($('.paper'));
+document.fonts.ready.then(preview);
+preview();

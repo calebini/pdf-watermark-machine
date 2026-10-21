@@ -2,7 +2,7 @@ import createQpdf from '@neslinesli93/qpdf-wasm';
 import wasmURL from '@neslinesli93/qpdf-wasm/dist/qpdf.wasm?url';
 import fontkit from '@pdf-lib/fontkit';
 import { PDFDocument, PDFName, PDFDict, PDFArray, PDFOperator, degrees, rgb } from 'pdf-lib';
-import { LEFT_HEADER, RIGHT_HEADER, MAX_FILE_BYTES, validateOptions, assertSecurityReport } from './policy.js';
+import { LEFT_HEADER, RIGHT_HEADER, MAX_FILE_BYTES, validateOptions, fitWatermarkSize, assertSecurityReport } from './policy.js';
 
 function run(qpdf, args) {
   let code;
@@ -46,7 +46,7 @@ function staticInput(doc) {
   }
 }
 
-function drawPage(page, font, { customer, header, opacity }) {
+function drawPage(page, font, { customer, header, opacity, watermarkFontSize }) {
   const unit = page.node.get(PDFName.of('UserUnit'));
   if (unit && Number(unit.toString()) !== 1) throw new Error('Custom page scaling (UserUnit) is not supported.');
   const { x, y, width, height } = page.getCropBox();
@@ -64,8 +64,7 @@ function drawPage(page, font, { customer, header, opacity }) {
   const headerSize = Math.min(9, (width - 72) / (textWidth(header) + 2 * side));
   if (headerSize < 6) throw new Error('The header is too long to fit beside the NDA labels. Use a shorter header.');
   const angle = 35 * Math.PI / 180;
-  const available = Math.min((width - 48) / Math.cos(angle), (height - 80) / Math.sin(angle));
-  const watermarkSize = Math.min(48, available / textWidth(customer));
+  const watermarkSize = fitWatermarkSize(textWidth(customer), width, height, watermarkFontSize);
   if (watermarkSize < 10) throw new Error('The customer name is too long for this page. Use a shorter name.');
   const ink = rgb(0.15, 0.19, 0.24);
   page.pushOperators(PDFOperator.of('BMC', [PDFName.of('Artifact')]));

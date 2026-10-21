@@ -6,7 +6,14 @@ test('customer and header validation', () => {
   assert.equal(singleLine('  Müller & Co.  '), 'Müller & Co.');
   for (const invalid of ['', 'a\nb', 'a\0b', 'a'.repeat(301)]) assert.throws(() => singleLine(invalid));
   assert.equal(validateOptions({ customer: 'Acme' }).header, 'Prepared exclusively for Acme');
+  assert.equal(validateOptions({ customer: 'Acme' }).watermarkFontSize, 48);
   for (const opacity of [NaN, 0, 0.41]) assert.throws(() => validateOptions({ customer: 'Acme', opacity }));
+  for (const watermarkFontSize of [NaN, Infinity, 0, 11, 97]) {
+    assert.throws(() => validateOptions({ customer: 'Acme', watermarkFontSize }));
+  }
+  for (const watermarkFontSize of [12, 96]) {
+    assert.equal(validateOptions({ customer: 'Acme', watermarkFontSize }).watermarkFontSize, watermarkFontSize);
+  }
 });
 
 test('safe generated filename', () => {

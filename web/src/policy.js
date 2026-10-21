@@ -17,7 +17,17 @@ export function validateOptions(options) {
   if (!Number.isFinite(opacity) || opacity < 0.05 || opacity > 0.4) {
     throw new Error('Watermark opacity must be between 5% and 40%.');
   }
-  return { customer, header, opacity };
+  const watermarkFontSize = Number(options.watermarkFontSize ?? 48);
+  if (!Number.isFinite(watermarkFontSize) || watermarkFontSize < 12 || watermarkFontSize > 96) {
+    throw new Error('Watermark font size must be between 12 and 96 points.');
+  }
+  return { customer, header, opacity, watermarkFontSize };
+}
+
+export function fitWatermarkSize(textWidthAtOne, width, height, requestedSize) {
+  const angle = 35 * Math.PI / 180;
+  const available = Math.min((width - 48) / Math.cos(angle), (height - 80) / Math.sin(angle));
+  return Math.min(requestedSize, available / textWidthAtOne);
 }
 
 export function outputFilename(customer, now = new Date()) {

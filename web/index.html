@@ -12,10 +12,9 @@
 <body>
   <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true">P</span><span>PDF Watermark <span class="brand-divider">/</span> <span class="brand-detail">Document utility</span></span></div><span class="local-badge"><span aria-hidden="true">●</span> Runs on your device</span></header>
   <main>
-    <div class="intro"><p class="eyebrow">CUSTOMER DOCUMENTS</p><h1>A white paper.<br>A personal copy.</h1><p class="lede">Add a customer watermark, apply document permissions,<br class="desktop-break"> and create a copy ready to share.</p></div>
     <div class="workspace">
       <section class="form-card" aria-labelledby="form-title">
-        <div class="card-heading"><h2 id="form-title">Prepare your document</h2><span class="step-note">All processing stays in this browser</span></div>
+        <div class="card-heading"><h1 id="form-title">Prepare your document</h1><span class="step-note">All processing stays in this browser</span></div>
         <form id="personalize-form">
           <fieldset id="inputs">
             <label class="field-label" for="template"><span class="step-number">1</span> Choose the template</label>
@@ -26,6 +25,7 @@
             <p class="field-help">Appears in the header and as a diagonal watermark on every page.</p>
             <details><summary>Customize header and appearance</summary><div class="advanced">
               <label class="small-label" for="header">Center header <span class="optional">optional</span></label><input id="header" type="text" maxlength="300" placeholder="Prepared exclusively for your customer" autocomplete="off" spellcheck="false">
+              <label class="small-label" for="watermark-size">Watermark font size <output id="watermark-size-label" for="watermark-size">48 pt</output></label><input id="watermark-size" type="range" min="12" max="96" step="1" value="48" aria-describedby="watermark-size-help"><p class="field-help" id="watermark-size-help">Long names are reduced when needed to fit the page.</p>
               <label class="small-label" for="opacity">Watermark opacity <output id="opacity-label" for="opacity">16%</output></label><input id="opacity" type="range" min="5" max="40" value="16">
               <label class="small-label" for="font">Custom TrueType font <span class="optional">optional</span></label><input id="font" type="file" accept=".ttf"><p class="field-help">Use a font with the characters your customer’s name needs.</p>
             </div></details>
