@@ -1,5 +1,8 @@
 # PDF Watermark
 
+**[Open the browser utility](https://calebini.github.io/pdf-watermark-machine/)**
+— PDFs and customer names are processed in your browser, without uploads.
+
 A local CLI for adding a customer's name and a header to an existing PDF, then
 applying qpdf AES-256 encryption and PDF permission controls. No network calls
 are made during processing. A reusable Python API leaves room for a later UI.
@@ -9,7 +12,7 @@ It produces the same watermark/header and PDF permissions using browser-local
 JavaScript and qpdf WebAssembly. Its built static files are in `web/dist/` for
 local testing and static hosting. The GitHub Pages workflow publishes this
 variant; an alternative GitLab Pages configuration is also included. See
-[`web/DEPLOY.md`](web/DEPLOY.md) for setup; nothing has been deployed yet.
+[`web/DEPLOY.md`](web/DEPLOY.md) for deployment and maintenance instructions.
 
 ## Use a portable build
 

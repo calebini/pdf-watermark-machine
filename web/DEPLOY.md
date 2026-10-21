@@ -2,10 +2,14 @@
 
 ## GitHub Pages
 
-The existing project can host this static utility. On GitHub Free, Pages needs
-a public repository. Before changing visibility, finish the repository cleanup,
-including its previous Git history, repository name and build artifacts.
-No site has been deployed yet.
+The public repository deploys this static utility to:
+**https://calebini.github.io/pdf-watermark-machine/**
+
+Source: https://github.com/calebini/pdf-watermark-machine
+
+Pages is configured to use GitHub Actions. Pushes to `main` that change `web/`
+or the Pages workflow rebuild and deploy the site automatically. To redeploy
+manually, follow steps 3–4 below. For a new deployment, use all these steps:
 
 1. Publish the reviewed source and Pages workflow to the repository's `main`
    branch. The workflow is `.github/workflows/pages.yml`.

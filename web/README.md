@@ -1,5 +1,7 @@
 # PDF Watermark — browser distribution
 
+Live site: **https://calebini.github.io/pdf-watermark-machine/**
+
 This is a local-first static variant of the desktop utility. Choose a PDF,
 enter a customer name, generate, then download. There is no application server,
 upload endpoint, analytics, external CDN, account service, or browser storage.
@@ -143,8 +145,8 @@ separate.
 ## GitHub Pages
 
 The workflow in `.github/workflows/pages.yml` builds the browser utility and
-publishes only `web/dist/`. Enable Pages with GitHub Actions as the source after
-the repository is ready to publish. See [DEPLOY.md](DEPLOY.md) for setup. No
+publishes only `web/dist/`. Pages is enabled with GitHub Actions as the source.
+See [DEPLOY.md](DEPLOY.md) for deployment and maintenance instructions. No
 template or customer PDF is hosted; document processing stays in the browser.
 
 ## GitLab Pages alternative
@@ -152,7 +154,8 @@ template or customer PDF is hosted; document processing stays in the browser.
 The root `.gitlab-ci.yml` includes `web/gitlab-pages.yml`. On the default branch,
 it installs the pinned dependencies, runs the unit checks, builds and publishes
 only `web/dist/`. See [DEPLOY.md](DEPLOY.md) for project setup, access control,
-runner requirements and the first-deployment checks. Nothing is deployed yet.
+runner requirements and the first-deployment checks. The GitLab alternative
+has not been deployed.
 
 If moving this folder into its own repository root, use `gitlab-pages.yml` as
 `.gitlab-ci.yml`, remove `cd web` and change both publish/artifact paths from

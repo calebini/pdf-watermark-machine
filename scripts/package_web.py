@@ -41,7 +41,7 @@ def main():
             "The local server only serves static files. PDFs are processed in\n"
             "your browser, not uploaded. Stop the server with Ctrl+C.\n"
             "Use --port 4175 if port 4173 is occupied.\n\n"
-            "For GitLab Pages, publish only the contents of dist/.\n"
+            "For static hosting, publish only the contents of dist/.\n"
             "Python is not needed when the site is hosted.\n")
     for archive in (static, preview):
         digest = hashlib.sha256(archive.read_bytes()).hexdigest()
